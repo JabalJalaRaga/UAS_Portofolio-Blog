@@ -41,7 +41,7 @@ export default function Dashboard() {
                 <span className="text-[#DD6B20]">Manajemen</span> Informatika {/* Changed text color */}
               </div>
             </div>
-            <p className="text-[#4A5568] mt-3">Saya adalah mahasiswa semester 5 tingkat 3 manajemen informatika yang mempunyai ipk 04.00 :^</p> {/* Changed text color */}
+            <p className="text-[#4A5568] mt-3">Saya adalah mahasiswa semester 5 tingkat 3 manajemen informatika yang mempunyai ipk 04.00 </p> {/* Changed text color */}
             <button className="btn-primary mt-5 px-4 py-2 rounded-lg bg-[#DD6B20] text-white font-semibold"> {/* Changed button color */}
               <span className="relative text-sm">Here Me</span>
             </button>
