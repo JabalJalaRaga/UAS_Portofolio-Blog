@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation'
 import { Editor } from '@tinymce/tinymce-react';
 import { useRef } from 'react';
 import ConfigDialog from '../../../../components/ConfirmDialog'
+
 export default function Blogsbyid(){
     // Komentar
     const [likedCommentId, setLikedCommentId] = useState(null);
@@ -38,6 +39,7 @@ export default function Blogsbyid(){
         setDataKomen({...datakomen, [e.target.name]: e.target.value })
     }
     // End Komentar
+
     const onFetchBlogs=async()=>{
         try{
             setLoading(true)
@@ -51,6 +53,7 @@ export default function Blogsbyid(){
             setLoading(false)
         }
     }
+
     const onFetchKomentar=async()=>{
         try{
             setLoadingKomentar(true)
@@ -64,6 +67,7 @@ export default function Blogsbyid(){
             setLoadingKomentar(false)
         }
     }
+
     // Komentar
     const onCancel=()=>{
         setModal(false)
@@ -74,10 +78,12 @@ export default function Blogsbyid(){
     const toggleLike = (id) => {
         setLikedCommentId(prev => (prev === id ? null : id)); // Jika sama, hilangkan like; jika berbeda, set ke id baru
     };
+
     const [replyData, setReplyData] = useState({
         komentar: '',
         parentId: null
     });
+
     const handleReplyInput = (e, parentId) => {
         setReplyData({ ...replyData, komentar: e.target.value, parentId });
     };
@@ -108,15 +114,18 @@ export default function Blogsbyid(){
             console.error("ERR", err.message);
         }
     }
+
     async function onSubmitData() {
         try{
             if (editorRef.current) {
                 const body = datakomen
                 body.komentar = editorRef.current.getContent();
+
                 let res = await fetch('/api/komenblog', {
                     method:'POST',
                     body: JSON.stringify(body),
                 })
+
                 let resData = await res.json()
                 if(!resData.data){
                 throw Error(resData.message)
@@ -132,17 +141,22 @@ export default function Blogsbyid(){
           setModalMessage(err.message)
         }
       }
+
+
     useEffect(()=>{
         onFetchBlogs()
         onFetchKomentar()
     },[])
+
     if(isLoading) return (<>Loading...</>)
+
     return (
         <>
             <div className='margin-0 mx-auto w-2/3'>
                 <h2 className="text-center text-[32px] font-bold w-full">{data.title}</h2>
                 <div className='mb-40 mt-10  ' dangerouslySetInnerHTML={{ __html: data.content }}/>
             </div>
+
             {/* Start Komentar */}
             <Card title="Tuliskan komentar">
             <div className="w-full my-5">
@@ -154,6 +168,7 @@ export default function Blogsbyid(){
                         type="text" 
                         className="w-full border my-input-text"/>
             </div>
+
             <div className="w-full my-2">
                 <label>Email</label>
                     <input 
@@ -162,6 +177,7 @@ export default function Blogsbyid(){
                         onChange={inputHandler}
                         className="w-full border my-input-text"/>
             </div>
+
             <div className="w-full my-2">
                 <label>Komentar</label>
                 <Editor
@@ -206,6 +222,7 @@ export default function Blogsbyid(){
                 </svg>
                 <span className="ml-1">{likedCommentId === komen.id ? 'Liked' : 'Like'}</span>
             </button>
+
             {/* Input Balasan */}
             <div className="mt-2">
                 <input 
@@ -223,6 +240,7 @@ export default function Blogsbyid(){
     ))
 }
         
+
         <ConfigDialog  
             onOkOny={()=>onCancel()} 
             showDialog={modal}
